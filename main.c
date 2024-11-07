@@ -1,6 +1,5 @@
 #include <stdio.h>
 
-// Declaração das funções (definidas em agenda.c)
 void menu();
 void adicionarContato();
 void listarContatos();
