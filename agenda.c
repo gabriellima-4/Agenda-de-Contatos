@@ -52,24 +52,27 @@ int validarEmail(const char *email) {
     return 0;
 }
 
+// Função para adicionar um novo contato, usando ponteiro para modificar o contador
 void adicionarContato() {
     if (contador >= MAX_CONTATOS) {
         printf("Lista de contatos cheia!\n");
         return;
     }
 
+    Contato *novoContato = &contatos[contador];
+
     printf("Digite o nome: ");
-    scanf(" %[^\n]", contatos[contador].nome);
+    scanf(" %[^\n]", novoContato->nome);
     printf("Digite o telefone: ");
-    scanf(" %[^\n]", contatos[contador].telefone);
-    if (!validarTelefone(contatos[contador].telefone)) {
+    scanf(" %[^\n]", novoContato->telefone);
+    if (!validarTelefone(novoContato->telefone)) {
         printf("Telefone inválido! Deve conter apenas números (10-15 dígitos).\n");
         return;
     }
 
     printf("Digite o email: ");
-    scanf(" %[^\n]", contatos[contador].email);
-    if (!validarEmail(contatos[contador].email)) {
+    scanf(" %[^\n]", novoContato->email);
+    if (!validarEmail(novoContato->email)) {
         printf("Email inválido! Por favor, insira um email válido.\n");
         return;
     }
@@ -78,6 +81,7 @@ void adicionarContato() {
     printf("Contato adicionado com sucesso!\n");
 }
 
+// Função para listar todos os contatos
 void listarContatos() {
     if (contador == 0) {
         printf("Nenhum contato cadastrado.\n");
@@ -90,6 +94,7 @@ void listarContatos() {
     }
 }
 
+// Função para buscar um contato pelo nome
 void buscarContato() {
     char nome[TAM_NOME];
     printf("Digite o nome do contato que deseja buscar: ");
@@ -105,6 +110,7 @@ void buscarContato() {
     printf("Contato não encontrado.\n");
 }
 
+// Função para editar um contato existente usando ponteiro
 void editarContato() {
     char nome[TAM_NOME];
     printf("Digite o nome do contato que deseja editar: ");
@@ -112,19 +118,22 @@ void editarContato() {
 
     for (int i = 0; i < contador; i++) {
         if (strcmp(contatos[i].nome, nome) == 0) {
+            Contato *contato = &contatos[i];
             printf("Editar contato:\n");
+
             printf("Novo nome: ");
-            scanf(" %[^\n]", contatos[i].nome);
+            scanf(" %[^\n]", contato->nome);
+
             printf("Novo telefone: ");
-            scanf(" %[^\n]", contatos[i].telefone);
-            if (!validarTelefone(contatos[i].telefone)) {
+            scanf(" %[^\n]", contato->telefone);
+            if (!validarTelefone(contato->telefone)) {
                 printf("Telefone inválido!\n");
                 return;
             }
 
             printf("Novo email: ");
-            scanf(" %[^\n]", contatos[i].email);
-            if (!validarEmail(contatos[i].email)) {
+            scanf(" %[^\n]", contato->email);
+            if (!validarEmail(contato->email)) {
                 printf("Email inválido!\n");
                 return;
             }
@@ -137,6 +146,7 @@ void editarContato() {
     printf("Contato não encontrado.\n");
 }
 
+// Função para remover um contato, ajustando o contador por ponteiro
 void removerContato() {
     char nome[TAM_NOME];
     printf("Digite o nome do contato que deseja remover: ");
